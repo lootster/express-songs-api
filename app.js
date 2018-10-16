@@ -3,7 +3,7 @@ const app = express();
 const movieRouter = require("./routes/movies");
 const songRouter = require("./routes/songs");
 
-app.use(express.static('client'));
+// app.use(express.static('client'));
 app.use(express.json())
 
 app.use("/movies", movieRouter);
