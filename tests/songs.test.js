@@ -27,6 +27,7 @@ describe("routes/songs", () => {
     });
   });
   
+  //-----
   it("GET /songs/:id should return the song with id", () => {
     expected = {id: 1, name: "test song", artist: "rhianna"};
     
@@ -40,7 +41,19 @@ describe("routes/songs", () => {
     });
   });
 
-
+  it("GET /songs/:id should return 404 if it's invalid song id", () => {
+    expected = {message: "Unable to find song with id: 50"};
+    
+    return request(app)
+    .get("/songs/50")
+    .send(requestBody)
+    
+    .then(response => {
+      expect(response.status).toEqual(404);
+      expect(response.body).toMatchObject(expected);
+    });
+  });
+  //-----
   it("PUT /songs/id should return the updated song", () => {
     requestBody = {
       id: 1,

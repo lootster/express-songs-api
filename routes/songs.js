@@ -20,10 +20,16 @@ router.post('/', (req, res) => {
     res.status(201).json(newSong);
 });
 
-//return a song with id 
+//return a song with id and should return error if song id is invalid
 router.get('/:id', (req, res) => {
     let song = songs.find(song => song.id == parseInt(req.params.id));
-    res.status(200).json(song);
+    if (song === undefined) {
+        res.status(404).send({message : "Unable to find song with id: "});
+        next(err); 
+    } else {
+        res.status(200).json(song);
+        res.status(404).json({message : ""});
+    }
 });
 
 //edit a song with id, and return edited song
